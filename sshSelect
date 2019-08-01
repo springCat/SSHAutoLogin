@@ -133,12 +133,12 @@ function AutoLogin(){
             pem=${CONFIG[6]}
             if [ -n "$pem" ] ;then
             expect -c "
-                spawn scp $4 -p ${CONFIG[2]} -i ${CONFIG[6]} $3 ${CONFIG[4]}@${CONFIG[3]}:~
+                spawn scp $4 -p${CONFIG[2]} -i ${CONFIG[6]} $3 ${CONFIG[4]}@${CONFIG[3]}:~
                 ${command}
             "
             else
             expect -c "
-                spawn scp $4 -p ${CONFIG[2]} $3 ${CONFIG[4]}@${CONFIG[3]}:~
+                spawn scp $4 -p${CONFIG[2]} $3 ${CONFIG[4]}@${CONFIG[3]}:~
                 ${command}
             "
             fi
@@ -146,12 +146,25 @@ function AutoLogin(){
             pem=${CONFIG[6]}
             if [ -n "$pem" ] ;then
             expect -c "
-                spawn scp $4 -p ${CONFIG[2]} -i ${CONFIG[6]} ${CONFIG[4]}@${CONFIG[3]}:$3 ~/Downloads
+                spawn scp $4 -p${CONFIG[2]} -i ${CONFIG[6]} ${CONFIG[4]}@${CONFIG[3]}:$3  /Users/springcat/Downloads
                 ${command}
             "
             else
             expect -c "
-                spawn scp $4 -p ${CONFIG[2]} ${CONFIG[4]}@${CONFIG[3]}:$3 ~/Downloads
+                spawn scp $4 -p${CONFIG[2]} ${CONFIG[4]}@${CONFIG[3]}:$3  /Users/springcat/Downloads
+                ${command}
+            "
+            fi
+	elif [ $2 == "-x" ]; then
+            pem=${CONFIG[6]}
+            if [ -n "$pem" ] ;then
+            expect -c "
+                spawn ssh -p${CONFIG[2]} -i ${CONFIG[6]} ${CONFIG[4]}@${CONFIG[3]} $3
+                ${command}
+            "
+            else
+            expect -c "
+                spawn ssh -p${CONFIG[2]} ${CONFIG[4]}@${CONFIG[3]} $3
                 ${command}
             "
             fi
